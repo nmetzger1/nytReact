@@ -1,15 +1,15 @@
 var React = require("react");
 
-var Results = React.createClass({
+var SavedArticles = React.createClass({
     render: function () {
-        return(
+        return (
             <div>
                 <p>
-                    Search Results Area
+                    Saved Articles Area
                 </p>
             </div>
         )
     }
 });
 
-module.exports = Results;
+module.exports = SavedArticles;
