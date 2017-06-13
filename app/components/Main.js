@@ -9,6 +9,8 @@ var Results = require("./children/Results");
 //For Ajax Requests
 var helpers = require("./utils/helpers");
 
+var i = 0;
+
 //Content
 var Main = React.createClass({
 
@@ -23,10 +25,22 @@ var Main = React.createClass({
 
     componentDidUpdate: function () {
         //Perform Article Search
+        console.log("SEARCH!");
+        helpers.searchArticles(this.state.topic, this.state.startYear, this.state.endYear)
+            .then(function (data) {
+
+                if(data !== this.state.results){
+
+                    this.setState({ results: data });
+                }
+
+            }.bind(this));
     },
 
-    setTerm: function (term) {
-        this.setState({ searchTerm: term });
+    setForm: function (form) {
+        this.setState({topic: form.topic});
+        this.setState({startYear: form.startYear});
+        this.setState({endYear: form.endYear});
     },
 
     //Render Page
@@ -41,7 +55,7 @@ var Main = React.createClass({
                 </div>
                 <div className="row">
                     <div className="col-md-6 searchForm">
-                        <Form setTerm={this.setTerm}/>
+                        <Form setForm={this.setForm}/>
                     </div>
                 </div>
                 <div className="row">

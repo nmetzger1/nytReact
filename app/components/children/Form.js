@@ -10,17 +10,41 @@ var Form = React.createClass({
         };
     },
 
-    topicChange: function (event) {
-        this.setState({topic: event.target.value});
-        console.log("TOPIC:", this.state.topic);
+    handleChange: function (event) {
+
+        var target = event.target;
+        var name = target.name;
+        var value = target.value;
+
+        console.log("event:", event);
+
+        var partialState = {};
+        partialState[name] = value;
+
+        this.setState(partialState);
+
+        console.log("STATE", partialState);
     },
 
-    startChange: function (event) {
-        this.setState({startYear: event.target.value});
-    },
+    submitForm: function (event) {
 
-    endChange: function (event) {
-        this.setState({endYear: event.target.value});
+        //prevent default
+        event.preventDefault();
+
+        //Send search terms to parent
+        this.props.setForm({
+            topic: this.state.topic,
+            startYear: this.state.startYear,
+            endYear: this.state.endYear
+        });
+
+        //Reset form fields
+        this.setState({
+            topic: "",
+            startYear: "",
+            endYear: ""
+        });
+
     },
 
     render: function () {
@@ -32,37 +56,37 @@ var Form = React.createClass({
                 <div className="panel-body text-center">
                     <form onSubmit={this.submitForm}>
                         <div className="form-group">
-                            <label for="topic">Topic</label>
+                            <label>Topic</label>
                             <input
                                 value={this.state.topic}
                                 type="text"
                                 className="form-control"
-                                id="topic"
-                                onChange={this.topicChange}
+                                name="topic"
+                                onChange={this.handleChange}
                                 placeholder="Enter an article topic"
                                 required
                             />
                         </div>
                         <div className="form-group">
-                            <label for="startYear">Start Year</label>
+                            <label>Start Year</label>
                             <input
                                 value={this.state.startYear}
-                                type="text"
+                                type="number"
                                 className="form-control"
-                                id="topic"
-                                onChange={this.startChange}
+                                name="startYear"
+                                onChange={this.handleChange}
                                 placeholder="Enter Start Year"
                                 required
                             />
                         </div>
                         <div className="form-group">
-                            <label for="endYear">Start Year</label>
+                            <label>End Year</label>
                             <input
                                 value={this.state.endYear}
-                                type="text"
+                                type="number"
                                 className="form-control"
-                                id="topic"
-                                onChange={this.endChange}
+                                name="endYear"
+                                onChange={this.handleChange}
                                 placeholder="Enter End Year"
                                 required
                             />
