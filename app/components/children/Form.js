@@ -16,14 +16,10 @@ var Form = React.createClass({
         var name = target.name;
         var value = target.value;
 
-        console.log("event:", event);
-
         var partialState = {};
         partialState[name] = value;
 
         this.setState(partialState);
-
-        console.log("STATE", partialState);
     },
 
     submitForm: function (event) {

@@ -40,6 +40,17 @@ app.get("/", function (req, res) {
 });
 
 //Get Saved Articles Route
+app.get("/api", function (req, res) {
+    Articles.find({}).limit(5).exec(function (err, doc) {
+        if(err){
+            console.log(err);
+        }
+        else {
+            console.log("MONGO RESULTS", doc);
+            res.send(doc);
+        }
+    });
+});
 
 //Save Articles to MongoDB
 app.post("/api", function (req, res) {

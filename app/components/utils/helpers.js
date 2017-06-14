@@ -24,6 +24,10 @@ var helper = {
         });
     },
 
+    getSavedArticles: function () {
+        return axios.get("/api");
+    },
+
     postArticle: function (url, title) {
         return axios.post("/api", {
             url: url,

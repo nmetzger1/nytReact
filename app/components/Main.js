@@ -16,11 +16,17 @@ var Main = React.createClass({
 
     //set initial state
     getInitialState: function() {
-        return { searchTerm: "", results: "", history: [] };
+        return { topic: "", startYear: "", endYear: "", results: "", savedArticles: [] };
     },
 
     componentDidMount: function () {
-        //Get List of Saved Articles
+        // //Get List of Saved Articles
+        helpers.getSavedArticles().then(function (response) {
+            if(response !== this.state.savedArticles){
+                console.log("SA BING!");
+                this.setState({ savedArticles: response.data})
+            }
+        }.bind(this));
     },
 
     componentDidUpdate: function () {
@@ -29,12 +35,10 @@ var Main = React.createClass({
         helpers.searchArticles(this.state.topic, this.state.startYear, this.state.endYear)
             .then(function (data) {
 
-
-                if(data !== this.state.results){
+                if(this.state.results[0] !== data[0]){
                     console.log("updating state");
                     this.setState({ results: data });
                 }
-
             }.bind(this));
     },
 
@@ -66,7 +70,7 @@ var Main = React.createClass({
                 </div>
                 <div className="row">
                     <div className="col-md-6 savedArticles">
-                        <SavedArticles articles={this.state.savedArticles}/>
+                        <SavedArticles savedArticles={this.state.savedArticles}/>
                     </div>
                 </div>
             </div>
