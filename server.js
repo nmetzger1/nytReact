@@ -24,6 +24,7 @@ app.use(express.static("./public"));
 //Configure MongoDB
 mongoose.connect("mongodb://localhost/articles");
 var db = mongoose.connection;
+var Articles = require("./models/Articles");
 
 db.on("error", function (err) {
     console.log("Mongoose Error: " + err)
@@ -41,7 +42,19 @@ app.get("/", function (req, res) {
 //Get Saved Articles Route
 
 //Save Articles to MongoDB
-
+app.post("/api", function (req, res) {
+    Articles.create({
+        url: req.body.url,
+        title: req.body.title
+    }, function (err) {
+        if(err){
+            console.log(err);
+        }
+        else {
+            res.send("Article saved to MongoDB");
+        }
+    });
+});
 
 //---------------------------------------------------
 // Listener

@@ -16,13 +16,19 @@ var helper = {
         return axios.get(query).then(function (response) {
 
             if(response.data.response.docs[0]){
-                console.log(response.data.response.docs);
                 return response.data.response.docs;
             }
 
             //if no results are found
             return "";
         });
+    },
+
+    postArticle: function (url, title) {
+        return axios.post("/api", {
+            url: url,
+            title: title
+        })
     }
 };
 

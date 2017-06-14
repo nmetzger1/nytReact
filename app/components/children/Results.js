@@ -1,6 +1,17 @@
 var React = require("react");
+var helpers = require("../utils/helpers");
 
 var Results = React.createClass({
+
+    saveArticle: function (event) {
+
+        var url = event.target.dataset.url;
+        var title = event.target.dataset.header;
+
+        helpers.postArticle(url, title).then(function () {
+            console.log("Db Updated.");
+        })
+    },
 
     render: function () {
 
@@ -27,7 +38,12 @@ var Results = React.createClass({
                 <div className="panel-body text-center">
                     <p>{article.snippet}</p>
                     <p><a href={article.web_url}>{article.web_url}</a></p>
-                    <button id={article._id}>Save Article</button>
+                    <button
+                        className="btn btn-default"
+                        onClick={this.saveArticle}
+                        data-header={article.headline.main}
+                        data-url={article.web_url}
+                    >Save Article</button>
                 </div>
             </div>
         );

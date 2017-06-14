@@ -29,8 +29,9 @@ var Main = React.createClass({
         helpers.searchArticles(this.state.topic, this.state.startYear, this.state.endYear)
             .then(function (data) {
 
-                if(data !== this.state.results){
 
+                if(data !== this.state.results){
+                    console.log("updating state");
                     this.setState({ results: data });
                 }
 
