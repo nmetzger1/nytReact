@@ -7,7 +7,7 @@ var nytKey = "98bcde8222594f77a098c1e0a70f7a54";
 var helper = {
 
     searchArticles: function(topic, startYear, endYear){
-        var query = "httpsw://developer.nytimes.com/proxy/https/api.nytimes.com/svc/search/v2/articlesearch.json?";
+        var query = "https://developer.nytimes.com/proxy/https/api.nytimes.com/svc/search/v2/articlesearch.json?";
         query += "api-key=" + nytKey;
         query += "&q=" + topic;
         query += "&begin_date=" + startYear + "0101";
