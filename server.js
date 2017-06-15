@@ -22,7 +22,7 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use(express.static("./public"));
 
 //Configure MongoDB
-mongoose.connect("mongodb://localhost/articles");
+mongoose.connect("mongodb://heroku_c2mmclk0:8c8taagb8nnl88l4453bhsek4@ds127982.mlab.com:27982/heroku_c2mmclk0");
 var db = mongoose.connection;
 var Articles = require("./models/Articles");
 
