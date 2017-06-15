@@ -20,32 +20,47 @@ var Main = React.createClass({
     },
 
     componentDidMount: function () {
-        // //Get List of Saved Articles
-        helpers.getSavedArticles().then(function (response) {
-            if(response !== this.state.savedArticles){
-                console.log("SA BING!");
-                this.setState({ savedArticles: response.data})
-            }
-        }.bind(this));
+        this.displaySavedArticles();
     },
 
-    componentDidUpdate: function () {
-        //Perform Article Search
-        console.log("SEARCH!");
-        helpers.searchArticles(this.state.topic, this.state.startYear, this.state.endYear)
-            .then(function (data) {
+    componentDidUpdate: function (prevProps, prevState) {
 
-                if(this.state.results[0] !== data[0]){
-                    console.log("updating state");
-                    this.setState({ results: data });
-                }
-            }.bind(this));
+
+        //Perform Article Search
+        //Note: For some reason comparing results for NYT causes an infinite loop.  the only way to stop it was to compare against the previous query...
+        if(this.state.topic != "" && (this.state.topic !== prevState.topic && this.state.startYear !== prevState.startYear && this.state.endYear !== prevState.endYear)){
+            console.log("SEARCH!");
+            helpers.searchArticles(this.state.topic, this.state.startYear, this.state.endYear)
+                .then(function (data) {
+
+                    console.log(data);
+                    console.log("!", this.state.results);
+
+                    if(data != prevState.results){
+                        console.log("updating state");
+                        this.setState({ results: data });
+                    }
+                }.bind(this));
+        }
+
+        //Update list of saved articles
+        this.displaySavedArticles();
     },
 
     setForm: function (form) {
-        this.setState({topic: form.topic});
-        this.setState({startYear: form.startYear});
-        this.setState({endYear: form.endYear});
+        this.setState({
+            topic: form.topic,
+            startYear: form.startYear,
+            endYear: form.endYear
+        });
+    },
+
+    displaySavedArticles: function () {
+        helpers.getSavedArticles().then(function (response) {
+            if(response != this.state.savedArticles){
+                this.setState({ savedArticles: response.data})
+            }
+        }.bind(this));
     },
 
     //Render Page

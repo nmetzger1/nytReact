@@ -10,6 +10,9 @@ var Results = React.createClass({
 
         helpers.postArticle(url, title).then(function () {
             console.log("Db Updated.");
+
+            //once article is saved, get list of saved articles
+
         })
     },
 
@@ -28,7 +31,7 @@ var Results = React.createClass({
             )
         }
 
-        var newArray = this.props.data.slice(0,5);
+        var newArray = this.props.data.docs.slice(0,5);
 
         const articles = newArray.map((article) =>
             <div className="panel panel-default">

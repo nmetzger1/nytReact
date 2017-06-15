@@ -9,7 +9,6 @@ var SavedArticles = React.createClass({
                 </div>
                 <div className="panel-body text-center">
                     {
-                        console.log(this.props)}{
                         this.props.savedArticles.map(function (article, i) {
                             return (
                                 <p key={i}>

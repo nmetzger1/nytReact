@@ -16,7 +16,7 @@ var helper = {
         return axios.get(query).then(function (response) {
 
             if(response.data.response.docs[0]){
-                return response.data.response.docs;
+                return response.data.response;
             }
 
             //if no results are found
