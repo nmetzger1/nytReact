@@ -57,9 +57,11 @@ var Main = React.createClass({
 
     displaySavedArticles: function () {
         helpers.getSavedArticles().then(function (response) {
-            if(response != this.state.savedArticles){
+            if(response.data.length !== this.state.savedArticles.length){
                 this.setState({ savedArticles: response.data})
             }
+
+            console.log(response.data);
         }.bind(this));
     },
 
@@ -77,15 +79,13 @@ var Main = React.createClass({
                     <div className="col-md-6 searchForm">
                         <Form setForm={this.setForm}/>
                     </div>
-                </div>
-                <div className="row">
-                    <div className="col-md-6 results">
-                        <Results data={this.state.results}/>
+                    <div className="col-md-6 savedArticles">
+                        <SavedArticles savedArticles={this.state.savedArticles}/>
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-6 savedArticles">
-                        <SavedArticles savedArticles={this.state.savedArticles}/>
+                    <div className="col-md-12 results">
+                        <Results data={this.state.results}/>
                     </div>
                 </div>
             </div>
